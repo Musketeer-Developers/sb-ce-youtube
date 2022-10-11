@@ -11,7 +11,7 @@ def root():
 
 @app.post("/yt_search")
 def youtube_search(search):
-    allSearch = Search(search, limit = 5)
+    allSearch = Search(search, limit = 15)
     titles = []
     links = []
     for X, each in enumerate(allSearch.result()['result']):
