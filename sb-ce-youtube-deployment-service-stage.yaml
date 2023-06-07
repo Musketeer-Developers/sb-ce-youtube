@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sb-ce-youtube-deployment-stage
+  labels:
+    app: sb-ce-youtube-stage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sb-ce-youtube-stage
+  template:
+    metadata:
+      labels:
+        app: sb-ce-youtube-stage
+    spec:
+      containers:
+        - name: sb-ce-youtube-stage
+          imagePullPolicy: Always
+          image: 003718499156.dkr.ecr.us-east-1.amazonaws.com/sb-ce-youtube:stage
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sb-ce-youtube-service-stage
+spec:
+  selector:
+    app: sb-ce-youtube-stage
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
